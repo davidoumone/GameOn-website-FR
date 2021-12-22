@@ -70,6 +70,7 @@
                   name="first"
                   minlength="2"
                 /><br />
+                <small class="erreur"></small>
               </div>
               <div class="formData">
                 <label for="last">Nom</label><br />
@@ -79,6 +80,7 @@
                   id="last"
                   name="last"
                 /><br />
+                <small class="erreur"></small>
               </div>
               <div class="formData">
                 <label for="email">E-mail</label><br />
@@ -88,6 +90,7 @@
                   id="email"
                   name="email"
                 /><br />
+                <small class="erreur"></small>
               </div>
               <div class="formData">
                 <label for="birthdate">Date de naissance</label><br />
@@ -97,6 +100,7 @@
                   id="birthdate"
                   name="birthdate"
                 /><br />
+                <small class="erreur"></small>
               </div>
               <div class="formData">
                 <label for="quantity"
@@ -111,6 +115,8 @@
                   min="0"
                   max="99"
                 />
+                <br />
+                <small class="erreur"></small>
               </div>
               <p class="text-label">Quelles villes ?</p>
               <div class="formData">
@@ -181,6 +187,7 @@
                   Portland</label
                 >
               </div>
+              <small class="erreur"></small>
 
               <div class="formData">
                 <input
@@ -195,7 +202,12 @@
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
                 <br />
-                <input class="checkbox-input" type="checkbox" name="check" id="checkbox2" />
+                <input
+                  class="checkbox-input"
+                  type="checkbox"
+                  name="check"
+                  id="checkbox2"
+                />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
                   Je souhaite être prévenu des prochains évènements.
@@ -209,6 +221,16 @@
                 value="C'est parti"
               />
             </form>
+          </div>
+        </div>
+      </div>
+      <div class="modalConfirmation">
+        <div class="modalConfirmation-content">
+          <span class="close"></span>
+          <div class="modal-body">
+            <p class="confirmMessage">
+              Merci pour votre inscription,<br />bonne chance pour la suite
+            </p>
           </div>
         </div>
       </div>
