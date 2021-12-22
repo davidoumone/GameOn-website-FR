@@ -19,6 +19,8 @@ const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
 const quantite = document.getElementById("quantity");
 const localisation = document.getElementsByName("location");
+const modalConfirm = document.querySelector(".modalConfirmation");
+const Confirmclose = document.getElementsByClassName("close")[1];
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -33,51 +35,83 @@ modalclose.onclick = function () {
   modalbg.style.display = "none";
 };
 
+// validation du formulaire
 function validate() {
-  if (form.value === undefined) {
-    console.error("formulaire invalide");
-    return false;
-  } else {
-    console.log("formulaire envoyé");
-    return true;
-  }
+  modalConfirm.style.display = "block";
+  modalbg.style.display = "none";
 }
+
+// modalConfirmation close
+Confirmclose.onclick = function () {
+  modalConfirm.style.display = "none";
+};
 
 // form submit
 form.addEventListener("submit", function (event) {
-  // champ nom
+  /*****************SOUMISSION DU FORMULAIRE **********************/
+  event.preventDefault();
+
+  /***************** CHAMP PRENOM ********************************/
   if (firstname.value.length <= 2) {
-    event.preventDefault();
-    console.error(
-      "Veuillez entrer 2 caractères ou plus pour le champ du prénom."
-    );
+    let myerreur = document.getElementsByClassName("erreur")[0];
+    myerreur.innerHTML =
+      "Veuillez entrer 2 caractères ou plus pour le champ prénom.";
+    myerreur.style.color = "red";
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[0];
+    myerreur.style.display = "none";
   }
 
-  // champ nom
+  /***************** CHAMP NOM ********************************/
   if (lastname.value.length <= 2) {
-    event.preventDefault();
-    console.error("Veuillez entrer 2 caractères ou plus pour le champ du nom.");
+    let myerreur = document.getElementsByClassName("erreur")[1];
+    myerreur.innerHTML =
+      "Veuillez entrer 2 caractères ou plus pour le champ nom.";
+    myerreur.style.color = "red";
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[1];
+    myerreur.style.display = "none";
+  }
+  /***************** CHAMP EMAIL ********************************/
+  //création de la regex exp pour validation email
+  let emailRegex = new RegExp(
+    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
+    "g"
+  );
+
+  // test pour format email
+  let testemail = emailRegex.test(email.value);
+
+  if (testemail) {
+    let myerreur = document.getElementsByClassName("erreur")[2];
+    myerreur.style.display = "none";
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[2];
+    myerreur.innerHTML = "Veuillez entrer une adresse email valide";
+    myerreur.style.color = "red";
   }
 
-  // champ email
-  if (!email.value) {
-    event.preventDefault();
-    console.error("veuiller entrer un email");
-  }
-
-  // champ birthdate
+  /***************** CHAMP BIRTHDADE ********************************/
   if (!birthdate.value) {
-    event.preventDefault();
-    console.error("veuiller entrer une date de naissance");
+    let myerreur = document.getElementsByClassName("erreur")[3];
+    myerreur.innerHTML = "Veuillez entrer une date de naissance";
+    myerreur.style.color = "red";
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[3];
+    myerreur.style.display = "none";
   }
 
-  // champ quantite
+  /***************** CHAMP QUANTITE ********************************/
   if (!quantite.value) {
-    event.preventDefault();
-    console.error("veuiller saisir une valeur numérique");
+    let myerreur = document.getElementsByClassName("erreur")[4];
+    myerreur.innerHTML = "Veuillez entrer une valeur entre 0 et 99";
+    myerreur.style.color = "red";
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[4];
+    myerreur.style.display = "none";
   }
 
-  // champ localisation
+  /***************** CHAMP LOCALISATION ********************************/
 
   let localisationValid = false;
   let i = 0;
@@ -88,7 +122,11 @@ form.addEventListener("submit", function (event) {
   }
 
   if (!localisationValid) {
-    event.preventDefault();
-    console.error("veuillez selectionner une ville!");
+    let myerreur = document.getElementsByClassName("erreur")[5];
+    myerreur.innerHTML = "Veuillez selectionner une destination";
+    myerreur.style.color = "red";
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[5];
+    myerreur.style.display = "none";
   }
 });
