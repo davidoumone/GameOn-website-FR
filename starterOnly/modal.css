@@ -176,6 +176,10 @@ input {
   border: 0.8px solid #ccc;
   outline: none;
 }
+
+.erreur {
+  font-size: 15px;
+}
 .text-control {
   margin: 0;
   padding: 8px;
@@ -718,5 +722,15 @@ footer {
     width: 106%;
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: -20px;
+  }
+
+  form > div:nth-child(9) {
+    margin-top: 25px;
+  }
+
+  .confirmMessage {
+    line-height: 50px;
+    font-size: 34px;
   }
 }

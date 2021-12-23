@@ -13,11 +13,6 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const modalclose = document.getElementsByClassName("close")[0];
 const form = document.querySelector("#reserve");
-const firstname = document.getElementById("first");
-const lastname = document.getElementById("last");
-const email = document.getElementById("email");
-const birthdate = document.getElementById("birthdate");
-const quantite = document.getElementById("quantity");
 const localisation = document.getElementsByName("location");
 const modalConfirm = document.querySelector(".modalConfirmation");
 const Confirmclose = document.getElementsByClassName("close")[1];
@@ -50,68 +45,17 @@ Confirmclose.onclick = function () {
 form.addEventListener("submit", function (event) {
   /*****************SOUMISSION DU FORMULAIRE **********************/
   event.preventDefault();
-
-  /***************** CHAMP PRENOM ********************************/
-  if (firstname.value.length <= 2) {
-    let myerreur = document.getElementsByClassName("erreur")[0];
-    myerreur.innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ prénom.";
-    myerreur.style.color = "red";
+  if (
+    validfirst(form.first) &&
+    validlast(form.last) &&
+    validemail(form.email) &&
+    validbirthdate(form.birthdate) &&
+    validquantite(form.quantity)
+  ) {
   } else {
-    let myerreur = document.getElementsByClassName("erreur")[0];
-    myerreur.style.display = "none";
+    modalConfirm.style.display = "none";
+    modalbg.style.display = "block";
   }
-
-  /***************** CHAMP NOM ********************************/
-  if (lastname.value.length <= 2) {
-    let myerreur = document.getElementsByClassName("erreur")[1];
-    myerreur.innerHTML =
-      "Veuillez entrer 2 caractères ou plus pour le champ nom.";
-    myerreur.style.color = "red";
-  } else {
-    let myerreur = document.getElementsByClassName("erreur")[1];
-    myerreur.style.display = "none";
-  }
-  /***************** CHAMP EMAIL ********************************/
-  //création de la regex exp pour validation email
-  let emailRegex = new RegExp(
-    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
-    "g"
-  );
-
-  // test pour format email
-  let testemail = emailRegex.test(email.value);
-
-  if (testemail) {
-    let myerreur = document.getElementsByClassName("erreur")[2];
-    myerreur.style.display = "none";
-  } else {
-    let myerreur = document.getElementsByClassName("erreur")[2];
-    myerreur.innerHTML = "Veuillez entrer une adresse email valide";
-    myerreur.style.color = "red";
-  }
-
-  /***************** CHAMP BIRTHDADE ********************************/
-  if (!birthdate.value) {
-    let myerreur = document.getElementsByClassName("erreur")[3];
-    myerreur.innerHTML = "Veuillez entrer une date de naissance";
-    myerreur.style.color = "red";
-  } else {
-    let myerreur = document.getElementsByClassName("erreur")[3];
-    myerreur.style.display = "none";
-  }
-
-  /***************** CHAMP QUANTITE ********************************/
-  if (!quantite.value) {
-    let myerreur = document.getElementsByClassName("erreur")[4];
-    myerreur.innerHTML = "Veuillez entrer une valeur entre 0 et 99";
-    myerreur.style.color = "red";
-  } else {
-    let myerreur = document.getElementsByClassName("erreur")[4];
-    myerreur.style.display = "none";
-  }
-
-  /***************** CHAMP LOCALISATION ********************************/
 
   let localisationValid = false;
   let i = 0;
@@ -125,8 +69,147 @@ form.addEventListener("submit", function (event) {
     let myerreur = document.getElementsByClassName("erreur")[5];
     myerreur.innerHTML = "Veuillez selectionner une destination";
     myerreur.style.color = "red";
+    modalConfirm.style.display = "none";
+    modalbg.style.display = "block";
+  }
+});
+
+/***************** CHAMP PRENOM ********************************/
+form.first.addEventListener("change", function () {
+  validfirst(this);
+});
+
+const validfirst = function (firstname) {
+  if (firstname.value.length <= 2) {
+    let myerreur = document.getElementsByClassName("erreur")[0];
+    myerreur.innerHTML =
+      "Veuillez entrer 2 caractères ou plus pour le champ prénom.";
+    myerreur.style.color = "red";
+    return false;
   } else {
+    let myerreur = document.getElementsByClassName("erreur")[0];
+    myerreur.innerHTML = "Prénom valide.";
+    myerreur.style.color = "green";
+    return true;
+  }
+};
+
+/***************** CHAMP NOM ********************************/
+form.last.addEventListener("change", function () {
+  validlast(this);
+});
+
+const validlast = function (lastname) {
+  if (lastname.value.length <= 2) {
+    let myerreur = document.getElementsByClassName("erreur")[1];
+    myerreur.innerHTML =
+      "Veuillez entrer 2 caractères ou plus pour le champ nom.";
+    myerreur.style.color = "red";
+    return false;
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[1];
+    myerreur.innerHTML = "Nom valide";
+    myerreur.style.color = "green";
+    return true;
+  }
+};
+
+/***************** CHAMP EMAIL ********************************/
+form.email.addEventListener("change", function () {
+  validemail(this);
+});
+
+const validemail = function (email) {
+  //création de la regex exp pour validation email
+  let emailRegex = new RegExp(
+    "^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$",
+    "g"
+  );
+
+  // test pour format email
+  let testemail = emailRegex.test(email.value);
+
+  if (testemail) {
+    let myerreur = document.getElementsByClassName("erreur")[2];
+    myerreur.innerHTML = "email valide";
+    myerreur.style.color = "green";
+    return true;
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[2];
+    myerreur.innerHTML = "Veuillez entrer une adresse email valide";
+    myerreur.style.color = "red";
+    return false;
+  }
+};
+
+/***************** CHAMP BIRTHDATE ********************************/
+form.birthdate.addEventListener("change", function () {
+  validbirthdate(this);
+});
+
+const validbirthdate = function (birthdate) {
+  if (!birthdate.value) {
+    let myerreur = document.getElementsByClassName("erreur")[3];
+    myerreur.innerHTML = "Veuillez entrer une date de naissance";
+    myerreur.style.color = "red";
+    return false;
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[3];
+    myerreur.innerHTML = "birthdate valide";
+    myerreur.style.color = "green";
+    return true;
+  }
+};
+
+/***************** CHAMP QUANTITE ********************************/
+form.quantity.addEventListener("change", function () {
+  validquantite(this);
+});
+
+const validquantite = function (quantite) {
+  if (!quantite.value) {
+    let myerreur = document.getElementsByClassName("erreur")[4];
+    myerreur.innerHTML = "Veuillez entrer une valeur entre 0 et 99";
+    myerreur.style.color = "red";
+    return false;
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[4];
+    myerreur.innerHTML = "valeur valide";
+    myerreur.style.color = "green";
+    return true;
+  }
+};
+/***************** CHAMP LOCALISATION ********************************/
+form.addEventListener("click", function () {
+  if (document.getElementById("location1").checked) {
     let myerreur = document.getElementsByClassName("erreur")[5];
-    myerreur.style.display = "none";
+    myerreur.innerHTML = "New york selectionné";
+    myerreur.style.color = "green";
+    return true;
+  } else if (document.getElementById("location2").checked) {
+    let myerreur = document.getElementsByClassName("erreur")[5];
+    myerreur.innerHTML = "San francisco selectionné";
+    myerreur.style.color = "green";
+    return true;
+  } else if (document.getElementById("location3").checked) {
+    let myerreur = document.getElementsByClassName("erreur")[5];
+    myerreur.innerHTML = "Seattle selectionné";
+    myerreur.style.color = "green";
+    return true;
+  } else if (document.getElementById("location4").checked) {
+    let myerreur = document.getElementsByClassName("erreur")[5];
+    myerreur.innerHTML = "Chicago selectionné";
+    myerreur.style.color = "green";
+    return true;
+  } else if (document.getElementById("location5").checked) {
+    let myerreur = document.getElementsByClassName("erreur")[5];
+    myerreur.innerHTML = "Boston selectionné";
+    myerreur.style.color = "green";
+    return true;
+  } else if (document.getElementById("location6").checked) {
+    let myerreur = document.getElementsByClassName("erreur")[5];
+    myerreur.innerHTML = "Portland selectionné";
+    myerreur.style.color = "green";
+    return true;
   }
 });
