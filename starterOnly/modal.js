@@ -46,10 +46,10 @@ form.addEventListener("submit", function (event) {
   /*****************SOUMISSION DU FORMULAIRE **********************/
   event.preventDefault();
   if (
-    validfirst(form.first) &&
-    validlast(form.last) &&
-    validemail(form.email) &&
-    validbirthdate(form.birthdate) &&
+    validfirst(form.first) ||
+    validlast(form.last) ||
+    validemail(form.email) ||
+    validbirthdate(form.birthdate) ||
     validquantite(form.quantity)
   ) {
   } else {
@@ -68,7 +68,17 @@ form.addEventListener("submit", function (event) {
   if (!localisationValid) {
     let myerreur = document.getElementsByClassName("erreur")[5];
     myerreur.innerHTML = "Veuillez selectionner une destination";
-    myerreur.style.color = "red";
+    myerreur.classList.add("text-danger");
+    myerreur.classList.remove("text-success");
+    modalConfirm.style.display = "none";
+    modalbg.style.display = "block";
+  }
+
+  if (!document.getElementById("checkbox1").checked) {
+    let myerreur = document.getElementsByClassName("erreur")[6];
+    myerreur.innerHTML = "Vous devez accepté les contitions d'utilisations";
+    myerreur.classList.add("text-danger");
+    myerreur.classList.remove("text-success");
     modalConfirm.style.display = "none";
     modalbg.style.display = "block";
   }
@@ -80,16 +90,18 @@ form.first.addEventListener("change", function () {
 });
 
 const validfirst = function (firstname) {
-  if (firstname.value.length <= 2) {
+  if (firstname.value.length < 2) {
     let myerreur = document.getElementsByClassName("erreur")[0];
     myerreur.innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ prénom.";
-    myerreur.style.color = "red";
+    myerreur.classList.add("text-danger");
+    myerreur.classList.remove("text-success");
     return false;
   } else {
     let myerreur = document.getElementsByClassName("erreur")[0];
     myerreur.innerHTML = "Prénom valide.";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   }
 };
@@ -100,16 +112,18 @@ form.last.addEventListener("change", function () {
 });
 
 const validlast = function (lastname) {
-  if (lastname.value.length <= 2) {
+  if (lastname.value.length < 2) {
     let myerreur = document.getElementsByClassName("erreur")[1];
     myerreur.innerHTML =
       "Veuillez entrer 2 caractères ou plus pour le champ nom.";
-    myerreur.style.color = "red";
+    myerreur.classList.add("text-danger");
+    myerreur.classList.remove("text-success");
     return false;
   } else {
     let myerreur = document.getElementsByClassName("erreur")[1];
     myerreur.innerHTML = "Nom valide";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   }
 };
@@ -132,12 +146,14 @@ const validemail = function (email) {
   if (testemail) {
     let myerreur = document.getElementsByClassName("erreur")[2];
     myerreur.innerHTML = "email valide";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   } else {
     let myerreur = document.getElementsByClassName("erreur")[2];
     myerreur.innerHTML = "Veuillez entrer une adresse email valide";
-    myerreur.style.color = "red";
+    myerreur.classList.add("text-danger");
+    myerreur.classList.remove("text-success");
     return false;
   }
 };
@@ -151,12 +167,14 @@ const validbirthdate = function (birthdate) {
   if (!birthdate.value) {
     let myerreur = document.getElementsByClassName("erreur")[3];
     myerreur.innerHTML = "Veuillez entrer une date de naissance";
-    myerreur.style.color = "red";
+    myerreur.classList.add("text-danger");
+    myerreur.classList.remove("text-success");
     return false;
   } else {
     let myerreur = document.getElementsByClassName("erreur")[3];
     myerreur.innerHTML = "birthdate valide";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   }
 };
@@ -170,12 +188,14 @@ const validquantite = function (quantite) {
   if (!quantite.value) {
     let myerreur = document.getElementsByClassName("erreur")[4];
     myerreur.innerHTML = "Veuillez entrer une valeur entre 0 et 99";
-    myerreur.style.color = "red";
+    myerreur.classList.add("text-danger");
+    myerreur.classList.remove("text-success");
     return false;
   } else {
     let myerreur = document.getElementsByClassName("erreur")[4];
     myerreur.innerHTML = "valeur valide";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   }
 };
@@ -184,32 +204,53 @@ form.addEventListener("click", function () {
   if (document.getElementById("location1").checked) {
     let myerreur = document.getElementsByClassName("erreur")[5];
     myerreur.innerHTML = "New york selectionné";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   } else if (document.getElementById("location2").checked) {
     let myerreur = document.getElementsByClassName("erreur")[5];
     myerreur.innerHTML = "San francisco selectionné";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   } else if (document.getElementById("location3").checked) {
     let myerreur = document.getElementsByClassName("erreur")[5];
     myerreur.innerHTML = "Seattle selectionné";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   } else if (document.getElementById("location4").checked) {
     let myerreur = document.getElementsByClassName("erreur")[5];
     myerreur.innerHTML = "Chicago selectionné";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   } else if (document.getElementById("location5").checked) {
     let myerreur = document.getElementsByClassName("erreur")[5];
     myerreur.innerHTML = "Boston selectionné";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
   } else if (document.getElementById("location6").checked) {
     let myerreur = document.getElementsByClassName("erreur")[5];
     myerreur.innerHTML = "Portland selectionné";
-    myerreur.style.color = "green";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
     return true;
+  }
+});
+
+/***************** CHAMP CONDITIONS GENERALES ********************************/
+form.addEventListener("click", function () {
+  if (document.getElementById("checkbox1").checked) {
+    let myerreur = document.getElementsByClassName("erreur")[6];
+    myerreur.innerHTML = "contitions d'utilisations accepté";
+    myerreur.classList.add("text-success");
+    myerreur.classList.remove("text-danger");
+  } else {
+    let myerreur = document.getElementsByClassName("erreur")[6];
+    myerreur.innerHTML = "Vous devez accepté les contitions d'utilisations";
+    myerreur.classList.add("text-danger");
+    myerreur.classList.remove("text-success");
   }
 });
