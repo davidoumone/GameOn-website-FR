@@ -180,6 +180,15 @@ input {
 .erreur {
   font-size: 15px;
 }
+
+.text-success {
+  color: lightgreen;
+}
+
+.text-danger {
+  color: red;
+}
+
 .text-control {
   margin: 0;
   padding: 8px;
@@ -469,6 +478,7 @@ form > div:nth-child(5) {
 .modalConfirmation {
   display: none;
   position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
   height: 100%;
@@ -729,6 +739,10 @@ footer {
     margin-top: 25px;
   }
 
+  .contain-erreur {
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
   .confirmMessage {
     line-height: 50px;
     font-size: 34px;
