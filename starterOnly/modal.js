@@ -22,23 +22,28 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // launch modal form
 function launchModal() {
-  modalbg.style.display = "block";
+  modalbg.classList.add("bground-apparition");
+  modalbg.classList.remove("bground");
 }
 
 // modal form close
 modalclose.onclick = function () {
-  modalbg.style.display = "none";
+  modalbg.classList.remove("bground-apparition");
+  modalbg.classList.add("bground");
 };
 
 // validation du formulaire
 function validate() {
-  modalConfirm.style.display = "block";
-  modalbg.style.display = "none";
+  modalConfirm.classList.add("modalConfirmation-apparition");
+  modalConfirm.classList.remove("modalConfirmation");
+  modalbg.classList.remove("bground-apparition");
+  modalbg.classList.add("bground");
 }
 
 // modalConfirmation close
 Confirmclose.onclick = function () {
-  modalConfirm.style.display = "none";
+  modalConfirm.classList.remove("modalConfirmation-apparition");
+  modalConfirm.classList.add("modalConfirmation");
 };
 
 // form submit
@@ -53,8 +58,10 @@ form.addEventListener("submit", function (event) {
     validquantite(form.quantity)
   ) {
   } else {
-    modalConfirm.style.display = "none";
-    modalbg.style.display = "block";
+    modalConfirm.classList.remove("modalConfirmation-apparition");
+    modalConfirm.classList.add("modalConfirmation");
+    modalbg.classList.add("bground-apparition");
+    modalbg.classList.remove("bground");
   }
 
   let localisationValid = false;
@@ -70,8 +77,10 @@ form.addEventListener("submit", function (event) {
     myerreur.innerHTML = "Veuillez selectionner une destination";
     myerreur.classList.add("text-danger");
     myerreur.classList.remove("text-success");
-    modalConfirm.style.display = "none";
-    modalbg.style.display = "block";
+    modalConfirm.classList.remove("modalConfirmation-apparition");
+    modalConfirm.classList.add("modalConfirmation");
+    modalbg.classList.add("bground-apparition");
+    modalbg.classList.remove("bground");
   }
 
   if (!document.getElementById("checkbox1").checked) {
@@ -79,8 +88,10 @@ form.addEventListener("submit", function (event) {
     myerreur.innerHTML = "Vous devez accepté les contitions d'utilisations";
     myerreur.classList.add("text-danger");
     myerreur.classList.remove("text-success");
-    modalConfirm.style.display = "none";
-    modalbg.style.display = "block";
+    modalConfirm.classList.remove("modalConfirmation-apparition");
+    modalConfirm.classList.add("modalConfirmation");
+    modalbg.classList.add("bground-apparition");
+    modalbg.classList.remove("bground");
   }
 });
 
