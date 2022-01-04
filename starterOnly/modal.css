@@ -193,6 +193,10 @@ input {
   font-size: 15px;
 }
 
+.erreur-disappared {
+  display: none;
+}
+
 .text-success {
   color: lightgreen;
 }
