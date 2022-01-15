@@ -250,7 +250,7 @@ form.quantity.addEventListener("change", function () {
 });
 
 const validquantite = function (quantite) {
-  if (!quantite.value) {
+  if (!quantite.value && quantite.toString().length >= 2) {
     let myerreur = document.getElementsByClassName("erreur")[4];
     myerreur.innerHTML = "Veuillez entrer une valeur entre 0 et 99";
     myerreur.classList.add("text-danger");
